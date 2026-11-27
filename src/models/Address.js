@@ -15,6 +15,21 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
+    district: {
+  type: DataTypes.ENUM(
+    'Девятовка',
+    'Ольшанка',
+    'Вишневец',
+    'Центр',
+    'Фолюш',
+    'Грандичи',
+    'Другой'
+  ),
+  defaultValue: 'Центр',
+  allowNull: false
+  }
+
   }, {
     tableName: 'addresses',
     timestamps: false,

@@ -5,11 +5,24 @@
 node_modules/
 client/node_modules/
 
-# Логи и временные файлы
+# Кэш сборки и временные файлы Vite / React
+client/dist/
+client/.vite/
+.vite/
+
+# Мобильная разработка (Expo / React Native на будущее)
+.expo/
+dist/
+
+# Системные файлы и мусор ОС
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Логи
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.DS_Store
-
-# Сборка
-client/dist/
+pnpm-debug.log*
+logs
+*.log

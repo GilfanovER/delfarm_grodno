@@ -29,6 +29,7 @@ import FarmerLayout from './components/FarmerLayout';
 import Dashboard from './pages/farmer/Dashboard';
 import Products from './pages/farmer/Products';
 import Orders from './pages/farmer/Orders';
+import FarmerAnalytics from './pages/farmer/FarmerAnalytics';
 
 // Страницы Администратора
 import AdminLayout from './components/AdminLayout';
@@ -146,6 +147,7 @@ const AppContent = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="analytics" element={<FarmerAnalytics />} />
         </Route>
 
         <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>

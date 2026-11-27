@@ -26,16 +26,50 @@ const Dashboard = () => {
       }
     };
     fetchStats();
-  },[]);
+  }, []);
 
+  // ОБНОВЛЕННАЯ ФУНКЦИЯ: добавлены 'delivered' и 'confirmed'
   const getStatusBadge = (status) => {
     switch (status) {
+      case 'pending':
       case 'pending_payment':
-      case 'paid': return <span className="bg-amber-100 text-amber-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit"><Clock size={14}/> Новые</span>;
-      case 'delivering': return <span className="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit"><AlertCircle size={14}/> В доставке</span>;
-      case 'completed': return <span className="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit"><CheckCircle2 size={14}/> Выполнен</span>;
-      case 'cancelled': return <span className="bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit">Отменен</span>;
-      default: return <span className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold w-fit">Неизвестно</span>;
+      case 'paid': 
+        return (
+          <span className="bg-amber-100 text-amber-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit">
+            <Clock size={14}/> Новые
+          </span>
+        );
+      case 'confirmed':
+        return (
+          <span className="bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit">
+            <Clock size={14}/> Подтвержден
+          </span>
+        );
+      case 'delivering': 
+        return (
+          <span className="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit">
+            <AlertCircle size={14}/> В доставке
+          </span>
+        );
+      case 'completed':
+      case 'delivered': 
+        return (
+          <span className="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit">
+            <CheckCircle2 size={14}/> Выполнен
+          </span>
+        );
+      case 'cancelled': 
+        return (
+          <span className="bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 w-fit">
+            Отменен
+          </span>
+        );
+      default: 
+        return (
+          <span className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold w-fit">
+            {status || 'Неизвестно'}
+          </span>
+        );
     }
   };
 
@@ -44,7 +78,7 @@ const Dashboard = () => {
       <div className="max-w-6xl mx-auto space-y-8 animate-pulse w-full">
         <div className="h-10 bg-slate-200 rounded w-1/3 mb-8"></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[1,2,3,4].map(i => <div key={i} className="bg-white h-32 rounded-[2rem] shadow-sm"></div>)}
+          {[1, 2, 3, 4].map(i => <div key={i} className="bg-white h-32 rounded-[2rem] shadow-sm"></div>)}
         </div>
         <div className="bg-white h-96 rounded-[2rem] shadow-sm mt-8"></div>
       </div>

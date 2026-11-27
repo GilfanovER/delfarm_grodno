@@ -1,0 +1,47 @@
+-- -- 1. Создание перечисляемого типа для районов г. Гродно
+-- DO $$ BEGIN
+--     CREATE TYPE enum_grodno_district AS ENUM (
+--         'Девятовка',
+--         'Ольшанка',
+--         'Вишневец',
+--         'Центр',
+--         'Фолюш',
+--         'Грандичи',
+--         'Другой'
+--     );
+-- EXCEPTION
+--     WHEN duplicate_object THEN null;
+-- END $$;
+
+-- -- 2. Добавление колонки района в таблицу Addresses (если отсутствует)
+-- ALTER TABLE "Addresses" 
+-- ADD COLUMN IF NOT EXISTS "district" enum_grodno_district DEFAULT 'Центр';
+
+-- -- 3. Создание аналитического представления (View) для быстрого доступа
+-- CREATE OR REPLACE VIEW view_farmer_order_analytics AS
+-- SELECT 
+--     oi.order_item_id,
+--     o.order_id,
+--     o.created_at AS order_date,
+--     o.status AS order_status,
+--     a.district AS delivery_district,
+--     p.farm_id,
+--     p.product_id,
+--     p.name AS product_name,
+--     p.category_id,
+--     c.name AS category_name,
+--     oi.quantity,
+--     oi.price_per_unit,
+--     (oi.quantity * oi.price_per_unit) AS item_total_revenue
+-- FROM "Order_Items" oi
+-- JOIN "Orders" o ON oi.order_id = o.order_id
+-- JOIN "Products" p ON oi.product_id = p.product_id
+-- JOIN "Categories" c ON p.category_id = c.category_id
+-- LEFT JOIN "Addresses" a ON o.address_id = a.address_id
+-- WHERE o.status IN ('confirmed', 'delivering', 'delivered');
+
+-- -- 4. Создание оптимизирующих B-Tree индексов
+-- CREATE INDEX IF NOT EXISTS idx_orders_status_created_at ON "Orders" (status, created_at);
+-- CREATE INDEX IF NOT EXISTS idx_order_items_product_order ON "Order_Items" (product_id, order_id);
+-- CREATE INDEX IF NOT EXISTS idx_products_farm_id ON "Products" (farm_id);
+-- CREATE INDEX IF NOT EXISTS idx_addresses_district ON "Addresses" (district);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
+  BarChart3, 
   Package, 
   ShoppingBag, 
   LogOut, 
@@ -38,7 +39,6 @@ const FarmerLayout = () => {
     fetchStatus();
   }, []);
 
-  
   useEffect(() => {
     setIsMobileOpen(prev => (prev ? false : prev));
   }, [location.pathname]); 
@@ -124,6 +124,7 @@ const FarmerLayout = () => {
           </div>
         </div>
 
+        {/* НАВИГАЦИЯ САЙДБАРА */}
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
           {isApproved && (
             <>
@@ -131,10 +132,18 @@ const FarmerLayout = () => {
                 <LayoutDashboard size={20} />
                 <span>Дашборд</span>
               </NavLink>
+              
+              {/* НОВЫЙ ПУНКТ: АНАЛИТИКА СППР */}
+              <NavLink to="/farmer/analytics" className={navLinkClass}>
+                <BarChart3 size={20} />
+                <span>Аналитика (СППР)</span>
+              </NavLink>
+
               <NavLink to="/farmer/products" className={navLinkClass}>
                 <Package size={20} />
                 <span>Мои товары</span>
               </NavLink>
+              
               <NavLink to="/farmer/orders" className={navLinkClass}>
                 <ShoppingBag size={20} />
                 <span>Заказы</span>

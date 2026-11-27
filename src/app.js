@@ -13,6 +13,8 @@ const farmerRoutes = require('./routes/farmerRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
+// 1. Импортируем маршрутизатор аналитики
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
 // 2. ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ
 
@@ -40,6 +42,8 @@ app.use('/api/farmer', farmerRoutes);
 app.use('/api/reviews', reviewRoutes); 
 app.use('/api/admin', adminRoutes);
 
+// 2. Регистрируем роут (рядом с другими farmerRoutes)
+app.use('/api/farmer/analytics', analyticsRoutes);
 
 // 5. ЗАПУСК СЕРВЕРА
 
